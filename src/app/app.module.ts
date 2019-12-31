@@ -19,9 +19,8 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    NgxGoogleAnalyticsModule.forRoot(environment.ga),
-    NgxGoogleAnalyticsRouterModule,
+    NgxGoogleAnalyticsModule.forRoot(environment.ga)
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
