@@ -33,6 +33,21 @@ export class GoogleAnalyticsService {
   }
 
   /**
+   * Add more trackers ID
+   *
+   * @param action config|event
+   * @param trackingCode trackingCode ID
+   */
+  addTrackerId(action: string, trackingCode: string, name: string) {
+    try {
+      this.$trackingId.trackingCodes.push({name, trackingCode});
+      window['gtag'](action, trackingCode);
+    } catch (err) {
+      this.throw(err);
+    }
+  }
+
+  /**
    * Send an event trigger to GA. It is the same as call:
    * ```js
    * gtag('event', 'video_auto_play_start', {
@@ -63,6 +78,9 @@ export class GoogleAnalyticsService {
           opt['interaction'] = interaction;
         }
         this.gtag('event', action as string, opt);
+        this.$trackingId.trackingCodes.forEach(item => {
+          this.gtag('event', action as string, opt);
+        });
       }
     } catch (error) {
       this.throw(error);
@@ -103,6 +121,9 @@ export class GoogleAnalyticsService {
           Object.assign(opt, options);
         }
         this.gtag('config', this.$trackingId.trackingCode, opt);
+        this.$trackingId.trackingCodes.forEach(item => {
+          this.gtag('config', item.trackingCode, opt);
+        });
       }
     } catch (error) {
       this.throw(error);
@@ -146,6 +167,9 @@ export class GoogleAnalyticsService {
           opt['app_installer_id'] = installerId;
         }
         this.gtag('event', 'screen_view', opt);
+        this.$trackingId.trackingCodes.forEach(item => {
+          this.gtag('event', 'screen_view', opt);
+        });
       }
     } catch (error) {
       this.throw(error);
@@ -176,6 +200,9 @@ export class GoogleAnalyticsService {
           opt['fatal'] = fatal;
         }
         this.gtag('event', 'exception', opt);
+        this.$trackingId.trackingCodes.forEach(item => {
+          this.gtag('event', 'exception', opt);
+        });
       }
     } catch (error) {
       this.throw(error);
