@@ -1,6 +1,6 @@
 {
   "name": "ngx-google-analytics-sdk",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -12,7 +12,13 @@
     "cp": "cp \".\\README.md\" \".\\dist\\ngx-google-analytics\\README.md\"",
     "cp:win": "copy \".\\README.md\" \".\\dist\\ngx-google-analytics\\README.md\"",
     "publish": "npm run build-pkg && npm run cp && npm publish dist\\ngx-google-analytics",
-    "publish:win": "npm run build-pkg && npm run cp:win && npm publish dist\\ngx-google-analytics"
+    "publish:win": "npm run build-pkg && npm run cp:win && npm publish dist\\ngx-google-analytics",
+    "postinstall": "npm run build-pkg && npm run cp:win",
+    "release": "release () { npm run pull && if [ -z $1 ]; then npm version patch; else npm version $1; fi && npm run push; }; release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/returnvoid/ngx-google-analytics.git"
   },
   "private": true,
   "dependencies": {
